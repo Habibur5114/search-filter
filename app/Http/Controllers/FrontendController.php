@@ -20,29 +20,49 @@ class FrontendController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('query');
          
-        $cat = Categorie::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
-        $aut = Author::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
+    //     $cat = Categorie::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
+    //     $aut = Author::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
 
-        $results = Newsarticle::where('title', 'LIKE', "%{$query}%");
-        if($cat != null){
-            $results = $results
-            ->orWhereIn('category_id',$cat);
+    //     $results = Newsarticle::where('title', 'LIKE', "%{$query}%");
+    //     if($cat != null){
+    //         $results = $results
+    //         ->orWhereIn('category_id',$cat);
             
-        }
-        if($aut != null){
-            $results = $results
-            ->orWhereIn('author_id',$aut);
-        }
+    //     }
+    //     if($aut != null){
+    //         $results = $results
+    //         ->orWhereIn('author_id',$aut);
+    //     }
 
-        $results=$results->with('category','author')
-        ->get();
+    //     $results=$results->with('category','author')
+    //     ->get();
 
        
-        return response()->json($results);
+    //     return response()->json($results);
+ 
+    // }
+
+    public function search(Request $request)
+    {
+    $query = $request->input('query');
+
+
+    $cat = Categorie::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
+    $aut = Author::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
+
+
+    $results = Newsarticle::where('title', 'LIKE', "%{$query}%")
+    ->orWhereIn('category_id', $cat) 
+    ->orWhereIn('author_id', $aut)   
+    ->with('category', 'author')   
+    ->get();
+
+   return response()->json($results);
+
  
     }
 

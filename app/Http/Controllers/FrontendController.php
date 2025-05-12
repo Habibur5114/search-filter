@@ -23,7 +23,7 @@ class FrontendController extends Controller
     // public function search(Request $request)
     // {
     //     $query = $request->input('query');
-         
+
     //     $cat = Categorie::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
     //     $aut = Author::where('name', 'LIKE', "%{$query}%")->pluck('id')->toArray();
 
@@ -31,7 +31,7 @@ class FrontendController extends Controller
     //     if($cat != null){
     //         $results = $results
     //         ->orWhereIn('category_id',$cat);
-            
+
     //     }
     //     if($aut != null){
     //         $results = $results
@@ -41,9 +41,9 @@ class FrontendController extends Controller
     //     $results=$results->with('category','author')
     //     ->get();
 
-       
+
     //     return response()->json($results);
- 
+
     // }
 
     public function search(Request $request)
@@ -56,21 +56,21 @@ class FrontendController extends Controller
 
 
     $results = Newsarticle::where('title', 'LIKE', "%{$query}%")
-    ->orWhereIn('category_id', $cat) 
-    ->orWhereIn('author_id', $aut)   
-    ->with('category', 'author')   
+    ->orWhereIn('category_id', $cat)
+    ->orWhereIn('author_id', $aut)
+    ->with('category', 'author')
     ->get();
 
    return response()->json($results);
 
- 
+
     }
 
-  
 
 
 
-   
+
+
 
 
     public function details($slug)
@@ -87,9 +87,14 @@ class FrontendController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function main()
     {
-        //
+         return view('frontend.main');
+    }
+
+    public function habib()
+    {
+        return view('frontend.habib');
     }
 
     /**

@@ -44,5 +44,7 @@ Route::get('/admin/news/status/{id}', [NewsarticleController::class, 'status'])-
 // frontend
 
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
+Route::get('/habib', [FrontendController::class, 'habib'])->name('frontend.index');
+Route::get('/main', [FrontendController::class, 'main'])->name('frontend.index');
 Route::get('/details/{slug}', [FrontendController::class, 'details'])->name('frontend.details');
 Route::get('/search', [FrontendController::class, 'search'])->name('search');
